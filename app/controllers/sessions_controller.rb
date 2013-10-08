@@ -1,0 +1,31 @@
+class SessionsController < ApplicationController
+
+ def create
+  id = params[:user][:user_id]
+  @user_db = User.find_by_user_id(id)
+   if @user_db != nil
+     mail_id = @user_db.email
+     if mail_id == params[:user][:email]
+       session[:session_token] = @user_db.session_token
+       #flash[:notice] = "You are logged in as #{@user_db.user_id}"
+       redirect_to movies_path
+     else
+       flash[:notice] = "Invalid user-id/email combination"
+       redirect_to login_path
+     end
+   else
+     flash[:notice] = "Invalid user-id/email combination"
+     redirect_to login_path
+   end
+ end
+  
+ def new
+
+ end
+
+ def destroy
+  reset_session
+  redirect_to movies_path
+ end
+
+end

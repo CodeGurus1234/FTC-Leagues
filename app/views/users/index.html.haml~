@@ -1,0 +1,18 @@
+%h1 All Users
+
+%table#users
+  %thead
+    %tr
+      %th User_Id
+      %th Email
+      %th Session Token
+      
+  %tbody
+    - @users.each do |user|
+      %tr
+        %td= user.user_id 
+        %td= movie.email
+        %td= movie.session_token
+       
+
+= link_to 'Add new user', new_user_path
